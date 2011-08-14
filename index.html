@@ -12,6 +12,7 @@ ul.tabs li{display:block; float:left; border:1px solid #999; border-width:1px 1p
 ul.tabs li:first-child{border-left:1px solid #999;}
 ul.tabs a{display:block; padding:3px 10px; background-color:#eee; border-bottom:1px solid #999;}
 ul.tabs a:hover{background-color:#fff;}
+ul.tabs span{display:block;}
 
 div.content{padding:10px; border:1px solid #999; clear:both;}
 
@@ -32,11 +33,11 @@ $(function(){
 	function buildHtml(n){
 		var html = '<div id="block_' + n + '" class="block">'
 			+ '<ul class="tabs">'
-				+ '<li><a href="#tab_a_' + n + '">one</a></li>'
+				+ '<li class="tabu-tab-active"><a href="#tab_a_' + n + '">one</a></li>'
 				+ '<li><a href="#tab_b_' + n + '">two</a></li>'
 				+ '<li><a href="#tab_c_' + n + '">three</a></li>'
 			+ '</ul>'
-			+ '<div id="tab_a_' + n + '" class="content">Hello</div>'
+			+ '<div id="tab_a_' + n + '" class="content tabu-cont-active">Hello</div>'
 			+ '<div id="tab_b_' + n + '" class="content">World</div>'
 			+ '<div id="tab_c_' + n + '" class="content">!!!!!</div>'
 		+ '</div>';
@@ -50,10 +51,12 @@ $(function(){
 	
 	$(document.body).html(html);
 	
-	$('ul.tabs').tabulous({index: 1});
+	$('ul.tabs').tabulous();
 	
 	var endTime = new Date();
 	console.log(endTime - stTime);
+	
+	$('#block_0').append('<div id="tab_d_0" class="content">??????</div>').find('ul').append('<li><a href="#tab_d_0">four</a></li>');
 });
 </script>
 </head>

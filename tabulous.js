@@ -11,7 +11,7 @@ $.fn.tabulous = function(opts){
 		},
 		
 		markHtml: function(){
-			if(this.st.checkJS){
+			if(st.checkJS){
 				var $html = $(document.documentElement), cls = 'js-tabulous';
 				if(!$html.hasClass(cls)){$html.addClass(cls);}
 			}
@@ -19,11 +19,11 @@ $.fn.tabulous = function(opts){
 
 		resetTabs: function($a){
 			var $li = $a.parent(),
-				$aLi = $li.siblings('li.' + this.st.tabClass),
+				$aLi = $li.siblings('li.' + st.tabClass),
 				id = $aLi.find('a').attr('href');
 			
-			$aLi.removeClass(this.st.tabClass);
-			$(id).removeClass(this.st.contentClass);
+			$aLi.removeClass(st.tabClass);
+			$(id).removeClass(st.contentClass);
 		},
 		
 		handleEvent: function(e){
@@ -33,36 +33,39 @@ $.fn.tabulous = function(opts){
 				_this = methods,
 				$cont = $($this.attr('href'));
 				
-			if($this.parent().hasClass(_this.st.tabClass)){return;}
+			if($this.parent().hasClass(st.tabClass)){return;}
 			
-			if(_this.st.callback){
-				if(!_this.st.callback($this, $cont)){
+			if(st.callback){
+				if(st.callback($this, $cont) === false){
 					return;
 				}
 			}
 			
 			_this.resetTabs($this);
-			$this.parent().addClass(_this.st.tabClass);
-			$cont.addClass(_this.st.contentClass);
+			$this.parent().addClass(st.tabClass);
+			$cont.addClass(st.contentClass);
 		}
-	};
+	},
+	st = methods.st;
 	
-	$.extend(methods.st, opts || {});
+	$.extend(st, opts || {});
 	
-	if(methods.st.event != 'click' && methods.st.event != 'mouseenter'){methods.st.event = 'click';}
+	if(st.event != 'click' && st.event != 'mouseover'){st.event = 'click';}
 	
 	methods.markHtml();
 	
 	return this.each(function(){
+		var $this = $(this);
 		
-		var $a = $(this).find('li a'),
-			$sa = methods.st.index + 1 == $a.length ? $a.slice(methods.st.index) : $a.slice(methods.st.index, methods.st.index + 1),
-			$cont = $($sa.attr('href'));
+		if(st.index > 0){
+			var $li = $this.find('li:nth-child(' + st.index + ')'),
+				$cont = $($li.find('a').attr('href'));
 			
-		$sa.parent().addClass(methods.st.tabClass);
-		$cont.addClass(methods.st.contentClass);
+			$li.addClass(st.tabClass);
+			$cont.addClass(st.contentClass);
+		}
 		
-		$a.bind(methods.st.event + '.tabulous', methods.handleEvent);
+		$this.delegate('a', st.event + '.tabulous', methods.handleEvent);
 	});
 };
 })(jQuery);
