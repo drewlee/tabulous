@@ -2,90 +2,42 @@
 <html lang="en">
 <head>
 <title>Tabulous Implementation</title>
-<style>
-body{margin:0; padding:10px; font:12px/16px Arial, sans-serif;}
-ul, li{margin:0; padding:0; list-style-type:none;}
-a{text-decoration:none; color:#000; outline:none;}
 
-ul.tabs{position:relative; top:1px; z-index:1;}
-ul.tabs li{display:block; float:left; border:1px solid #999; border-width:1px 1px 0 0; background-color:#fff;}
-ul.tabs li:first-child{border-left:1px solid #999;}
-ul.tabs a{display:block; padding:3px 10px; background-color:#eee; border-bottom:1px solid #999;}
-ul.tabs a:hover{background-color:#fff;}
-ul.tabs span{display:block;}
-
-div.content{padding:10px; border:1px solid #999; clear:both;}
-
-/* default settings */
-.js-tabulous .content{display:none;}
-.js-tabulous .tabu-tab-active a{background-color:#fff; border-bottom:1px solid #fff;}
-.js-tabulous .tabu-cont-active{display:block;}
-</style>
-
+<link href="styles.css" rel="stylesheet" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
 <script src="tabulous.js"></script>
 <script>
 $(function(){
-	var stTime = new Date();
-	
-	var html = '';
-	
-	function buildHtml(n){
-		var html = '<div id="block_' + n + '" class="block">'
-			+ '<ul class="tabs">'
-				+ '<li class="tabu-tab-active"><a href="#tab_a_' + n + '">one</a></li>'
-				+ '<li><a href="#tab_b_' + n + '">two</a></li>'
-				+ '<li><a href="#tab_c_' + n + '">three</a></li>'
-			+ '</ul>'
-			+ '<div id="tab_a_' + n + '" class="content tabu-cont-active">Hello</div>'
-			+ '<div id="tab_b_' + n + '" class="content">World</div>'
-			+ '<div id="tab_c_' + n + '" class="content">!!!!!</div>'
-		+ '</div>';
-		
-		return html;
-	}
-	
-	for(var i=0; i<=50; i++){
-		html += buildHtml(i);
-	}
-	
-	$(document.body).html(html);
-	
 	$('ul.tabs').tabulous();
-	
-	var endTime = new Date();
-	console.log(endTime - stTime);
-	
-	$('#block_0').append('<div id="tab_d_0" class="content">??????</div>').find('ul').append('<li><a href="#tab_d_0">four</a></li>');
 });
 </script>
 </head>
 
 <body>
-<!--
+
 <div id="block_0" class="block">
-	<ul class="tabs">
-    	<li><a href="#tab_1">one</a></li>
+	<ul class="tabs clearfix">
+    	<li class="tabu-tab-active"><a href="#tab_1">one</a></li>
         <li><a href="#tab_2">two</a></li>
         <li><a href="#tab_3">three</a></li>
     </ul>
     
-    <div id="tab_1" class="content mstabs-content-selected">Hello</div>
+    <div id="tab_1" class="content tabu-cont-active">Hello</div>
     <div id="tab_2" class="content">World</div>
     <div id="tab_3" class="content">!!!!!</div>
 </div>
 
 <div id="block_1" class="block">
-	<ul class="tabs">
-    	<li><a href="#tab_4">one</a></li>
+	<ul class="tabs clearfix">
+    	<li class="tabu-tab-active"><a href="#tab_4">one</a></li>
         <li><a href="#tab_5">two</a></li>
         <li><a href="#tab_6">three</a></li>
     </ul>
     
-    <div id="tab_4" class="content mstabs-content-selected">Hello</div>
+    <div id="tab_4" class="content tabu-cont-active">Hello</div>
     <div id="tab_5" class="content">World</div>
     <div id="tab_6" class="content">!!!!!</div>
 </div>
--->
+
 </body>
 </html>
