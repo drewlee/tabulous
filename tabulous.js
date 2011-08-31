@@ -10,6 +10,10 @@ $.fn.tabulous = function(opts){
 			checkJS: true
 		},
 		
+		clean: function(str){
+			return str.substr(str.indexOf('#'));
+		},
+		
 		markHtml: function(){
 			if(st.checkJS){
 				var $html = $(document.documentElement), cls = 'js-tabulous';
@@ -23,7 +27,7 @@ $.fn.tabulous = function(opts){
 				id = $aLi.find('a').attr('href');
 			
 			$aLi.removeClass(st.tabClass);
-			$(id).removeClass(st.contentClass);
+			$(this.clean(id)).removeClass(st.contentClass);
 		},
 		
 		handleEvent: function(e){
@@ -31,7 +35,7 @@ $.fn.tabulous = function(opts){
 			
 			var $this = $(this),
 				_this = methods,
-				$cont = $($this.attr('href'));
+				$cont = $(_this.clean($this.attr('href')));
 				
 			if($this.parent().hasClass(st.tabClass)){return;}
 			
