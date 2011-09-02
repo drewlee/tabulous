@@ -39,7 +39,7 @@ $.fn.tabulous = function(opts){
 				
 			if($this.parent().hasClass(st.tabClass)){return;}
 			
-			if(st.callback){
+			if(st.callback && typeof st.callback == 'function'){
 				if(st.callback($this, $cont) === false){
 					return;
 				}

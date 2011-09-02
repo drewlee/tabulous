@@ -1,1 +1,84 @@
-Oh no, not another tab plugin!
+BACKGROUND
+
+Tabulous allows for an easy method of creating tabbed interfaces. As long as a sound HTML structure is followed, the tabulous script will bind
+itself and create the tabbed interactions.
+
+
+USAGE
+
+First you must set up the proper HTML structure:
+
+<div id="tab_container_1" class="tab-container">
+	<!-- tabs -->
+	<ul id="tabs" class="tabs">
+		<!-- set the first tab as active -->
+    	<li class="tabu-tab-active"><a href="#tab_1">one</a></li>
+        <li><a href="#tab_2">two</a></li>
+        <li><a href="#tab_3">three</a></li>
+    </ul>
+    
+	<!-- content blocks, first block is active -->
+    <div id="tab_1" class="content tabu-cont-active">Tab 1 contents. Lorem Ipsum.</div>
+    <div id="tab_2" class="content">Tab 2 contents. Lorem Ipsum.</div>
+    <div id="tab_3" class="content">Tab 3 contents. Lorem Ipsum.</div>
+</div>
+
+By default, Tabulous applies the "tabu-tab-active" class name to the active tab element, and the "content tabu-cont-active" class name to the
+active content block element. Use these class names to set the display properties of the content blocks to block or none. Each of your content
+blocks must contain a unique ID attribute. The HREF attribute of the tabs must match the ID attribute of your content blocks. Initialize the
+plugin by applying it to the UL element wrapping the tabs.
+
+$('ul.tabs').tabulous();
+
+For maximum performance, us an ID attribute to initialize the tabs, or use a parent element reference that contains a unique ID.
+
+Initialize with an ID on the UL tab wrapper:
+
+$('#tabs').tabulous();
+
+Initialize using a parent reference:
+
+$('#tab_container_1').find('ul.tabs').tabulous();
+
+Tabulous attaches a class name to the HTML tag of the page to signify that JavaScript is enabled. The class name is "js-tabulous". Use this
+as a qualifier to hide the non active content blocks. For example:
+
+.js-tabulous .content{display:none;}	/* content blocks are hidden when JS is enabled */
+.js-tabulous .tabu-cont-active{display:block;}	/* show the active content block */
+
+This ensures graceful degradation in the case that JavaScript is disabled as all the content blocks will be visible to the user.
+
+
+OPTIONS
+
+Tabulous features 6 optional settings.
+
+- tabClass: A custom class name applied to the active tab element. Default is "tabu-tab-active".
+
+- contentClass: A custom class name applied to the active content element. Default is "tabu-cont-active".
+
+- event: Tabulous works with either the click event or the mouseover event. Default is click.
+
+- index: The zero based index of the tab that should be active on initialization. For performance reasons, it is recommended that you apply the
+	active class names to the tab you wish to make active manually in your HTML. But, it is understood that in some instaces you need to reload
+	a previously saved state, and this is when you can use the index setting. The index setting is ignored until it is explicitly set.
+
+- callback: A custom callback function that runs when a tab is clicked or moused over. The anchor element and content block element instances,
+	respectively, are passed as arguments in the callback. Returning false within the callback function will stop the execution of the tab
+	switch.
+
+- checkJS: Turns off the attachment of the "js-tabulous" class name to the HTML element on initialization. Default setting is true, set to false
+	to turn of the JavaScript check.
+
+$('#tabs').tabulous({
+	tabClass: 'my-active-tab',			// default is 'tabu-tab-active'
+	contentClass: 'my-active-content',	// default is 'tabu-cont-active'
+	event: 'click',						// can be set to either 'click' (default) or 'mouseover'
+	index: 0,							// the 0 based index of that tab that should be active on init
+	callback: null,						// callback function that runs when tab switch is triggered
+	checkJS: true						// prevent class attachment to the HTML element on init, default is true, set to false to turn off
+});
+
+
+ADDITIONAL INFO
+coming soon
