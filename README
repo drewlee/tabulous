@@ -81,7 +81,7 @@ $('#tabs').tabulous({
 	index: 0,                           // the 0 based index of that tab that should be active on init
 	callback: null,                     // callback function that runs when tab switch is triggered
 	checkJS: true                       // prevent class attachment to the HTML element on init, default is true,
-                                        // set to false to turn off
+                                            // set to false to turn off
 });
 
 
