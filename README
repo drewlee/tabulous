@@ -75,13 +75,13 @@ Tabulous features 6 optional settings.
 	setting is true, set to false to turn of the JavaScript check.
 
 $('#tabs').tabulous({
-	tabClass: 'my-active-tab',			// default is 'tabu-tab-active'
-	contentClass: 'my-active-content',	// default is 'tabu-cont-active'
-	event: 'click',						// can be set to either 'click' (default) or 'mouseover'
-	index: 0,							// the 0 based index of that tab that should be active on init
-	callback: null,						// callback function that runs when tab switch is triggered
-	checkJS: true						// prevent class attachment to the HTML element on init, default is true,
-										// set to false to turn off
+	tabClass: 'my-active-tab',          // default is 'tabu-tab-active'
+	contentClass: 'my-active-content',  // default is 'tabu-cont-active'
+	event: 'click',                     // can be set to either 'click' (default) or 'mouseover'
+	index: 0,                           // the 0 based index of that tab that should be active on init
+	callback: null,                     // callback function that runs when tab switch is triggered
+	checkJS: true                       // prevent class attachment to the HTML element on init, default is true,
+                                        // set to false to turn off
 });
 
 
