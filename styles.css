@@ -1,19 +1,57 @@
 @charset "UTF-8";
 
-body{margin:0; padding:20px 0 0 0; font:12px/16px Arial, sans-serif;}
+/* global */
+body{margin:0; padding:0; font:12px/16px Arial, sans-serif; color:#000; background-color:#fff;}
 ul, li{margin:0; padding:0; list-style-type:none;}
+h1{margin:20px 30px; font-size:24px; line-height:16px;}
 a{text-decoration:none; color:#fff; outline:none;}
-.clearfix:after{content:'.'; display:block; clear:both; visibility:hidden; height:0; line-height:0;}
+p{margin:12px 30px;}
+pre{display:block; margin:0 30px 20px; padding:5px; background-color:#e5f5fd; font:12px/16px Courier, sans-serif; color:#333;}
 
+/* clearfix */
+.clearfix:after{content:'.'; display:block; clear:both; visibility:hidden; height:0; line-height:0;}
+.clearfix{height:1%;}
+
+/* tab wrapper */
+.block{margin:0 0 30px 0;}
+
+/* tab styles */
 ul.tabs{padding:0 30px; border-bottom:1px solid #666;}
 ul.tabs li{display:block; float:left; margin:0 2px 0 0;}
-ul.tabs a{display:block; width:100px; padding:4px 0; background-color:#aaa; border-bottom:1px solid #fff; text-align:center;}
-ul.tabs a:hover{background-color:#666;}
+ul.tabs a{display:block; width:100px; padding:4px 0; background-color:#aaa; border-bottom:1px solid #fff; text-align:center; cursor:default;}
 
-.content{padding:10px; margin:0 30px; background-color:#eee;}
-.block{margin:0 0 10px 0;}
+/* content block */
+.content{height:48px; overflow-y:auto; padding:10px; margin:0 30px; background-color:#eee;}
 
-/* default settings */
+/* tabulous styles */
 .js-tabulous .content{display:none;}
-.js-tabulous .tabu-tab-active a{background-color:#666; border-bottom-color:#666; cursor:default;}
+.js-tabulous .tabu-tab-active a{background-color:#444; border-bottom-color:#444; cursor:default;}
 .js-tabulous .tabu-cont-active{display:block;}
+.js-tabulous ul.tabs a:hover{background-color:#444; cursor:pointer;}
+
+/* usage with custom classes */
+.js-tabulous .t-active a{background-color:#444; border-bottom-color:#444; cursor:default;}
+.js-tabulous .c-active{display:block;}
+
+/* fancy CSS3 graphics */
+ul.tabs a{
+	background:-webkit-gradient(linear, 0 0, 0 100%, from(#aaa), to(#888));
+	background:-moz-linear-gradient(#aaa, #888);
+	background:-o-linear-gradient(#aaa, #888);
+	background:linear-gradient(#aaa, #888);
+	text-shadow:0 1px 1px #222;
+}
+.js-tabulous ul.tabs a:hover,
+.js-tabulous .tabu-tab-active a,
+.js-tabulous .t-active a{
+	background:-webkit-gradient(linear, 0 0, 0 100%, from(#666), to(#444));
+	background:-moz-linear-gradient(#666, #444);
+	background:-o-linear-gradient(#666, #444);
+	background:linear-gradient(#666, #444);
+}
+.content{
+	background:-webkit-gradient(linear, 0 0, 0 100%, from(#bbb), color-stop(10%, #eee));
+	background:-moz-linear-gradient(#bbb, #eee 5px);
+	background:-o-linear-gradient(#bbb, #eee 5px);
+	background:linear-gradient(#bbb, #eee 5px);
+}

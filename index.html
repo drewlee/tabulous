@@ -1,43 +1,224 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Tabulous Implementation</title>
+<title>Tabulous Usage Guide</title>
 
 <link href="styles.css" rel="stylesheet" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
 <script src="tabulous.js"></script>
 <script>
 $(function(){
-	$('ul.tabs').tabulous();
+
+$('#block_0').find('ul.tabs').tabulous();
+
+$('#block_1').find('ul.tabs').tabulous({
+	tabClass: 't-active',
+	contentClass: 'c-active'
+});
+
+$('#block_2').find('ul.tabs').tabulous({
+	event: 'mouseover'
+})
+.find('a').click(function(e){e.preventDefault()});
+
+$('#block_3').find('ul.tabs').tabulous({
+	callback: function($tab, $content){
+		if($content.is('#tab_3_c')){
+			window.location = $content.text();
+			return false;
+		}
+	}
+});
+
+var lastTabIdx = 1;
+
+// get the last tab that was viewed
+if(typeof localStorage != 'undefined') lastTabIdx = Number(localStorage.tab) || 1;
+
+// fn which loads the content
+function loadFile($content){
+	var id = $content.attr('id'), file = '';
+
+	// determine which file to load
+	switch(id){
+		case 'tab_4_a':
+			file = '01';
+			break;
+		case 'tab_4_b':
+			file = '02';
+			break;
+		case 'tab_4_c':
+			file = '03';
+			break;
+	}
+	
+	// ajax load content
+	$content.load('ajax/' + file + '.html');
+}
+
+// load the ajax content from previous session
+loadFile(
+	$('#block_4').find('div:nth-child(' + (lastTabIdx + 1) + ')')
+);
+
+// init tabulous
+$('#block_4').find('ul.tabs').tabulous({
+	index: lastTabIdx,
+	checkJS: false,
+	callback: function($tab, $content){
+		// save the index of the last tab that was viewed
+		if(typeof localStorage != 'undefined') localStorage.tab = $tab.parent().index() + 1;
+		
+		// only load if content hasn't been loaded yet
+		if(!$content.html()) loadFile($content);
+	}
+});
+
 });
 </script>
 </head>
 
 <body>
-
+<h1>Tabulous Usage Guide</h1>
+<p>Basic implementation.</p>
+<pre>
+$('#block_0').find('ul.tabs').tabulous();
+</pre>
 <div id="block_0" class="block">
 	<ul class="tabs clearfix">
-    	<li class="tabu-tab-active"><a href="#tab_1">one</a></li>
-        <li><a href="#tab_2">two</a></li>
-        <li><a href="#tab_3">three</a></li>
+    	<li class="tabu-tab-active"><a href="#tab_0_a">one</a></li>
+        <li><a href="#tab_0_b">two</a></li>
+        <li><a href="#tab_0_c">three</a></li>
     </ul>
     
-    <div id="tab_1" class="content tabu-cont-active">Hello</div>
-    <div id="tab_2" class="content">World</div>
-    <div id="tab_3" class="content">!!!!!</div>
+    <div id="tab_0_a" class="content tabu-cont-active">Hello, I am content block 1.</div>
+    <div id="tab_0_b" class="content">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+    <div id="tab_0_c" class="content">http://google.com</div>
 </div>
 
+<p>Apply custom class names to active tab and active content block.</p>
+<pre>
+$('#block_1').find('ul.tabs').tabulous({
+	tabClass: 't-active',
+	contentClass: 'c-active'
+});
+</pre>
 <div id="block_1" class="block">
 	<ul class="tabs clearfix">
-    	<li class="tabu-tab-active"><a href="#tab_4">one</a></li>
-        <li><a href="#tab_5">two</a></li>
-        <li><a href="#tab_6">three</a></li>
+    	<li class="t-active"><a href="#tab_1_a">one</a></li>
+        <li><a href="#tab_1_b">two</a></li>
+        <li><a href="#tab_1_c">three</a></li>
     </ul>
     
-    <div id="tab_4" class="content tabu-cont-active">Hello</div>
-    <div id="tab_5" class="content">World</div>
-    <div id="tab_6" class="content">!!!!!</div>
+    <div id="tab_1_a" class="content c-active">Hello, I am content block 1.</div>
+    <div id="tab_1_b" class="content">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+    <div id="tab_1_c" class="content">http://google.com</div>
 </div>
+
+<p>Use a mouseover event instead of click event.</p>
+<pre>
+$('#block_2').find('ul.tabs').tabulous({
+	event: 'mouseover'
+});
+</pre>
+<div id="block_2" class="block">
+	<ul class="tabs clearfix">
+    	<li class="tabu-tab-active"><a href="#tab_2_a">one</a></li>
+        <li><a href="#tab_2_b">two</a></li>
+        <li><a href="#tab_2_c">three</a></li>
+    </ul>
+    
+    <div id="tab_2_a" class="content tabu-cont-active">Hello, I am content block 1</div>
+    <div id="tab_2_b" class="content">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+    <div id="tab_2_c" class="content">http://google.com</div>
+</div>
+
+<p>Use with a callback function. The tab element, and content block element, are passed as arguments in the callback. You can return
+false to prevent the tab behavior from executing. Clicking the third tab below will redirect to the Google homepage.</p>
+<pre>
+$('#block_3').find('ul.tabs').tabulous({
+	callback: function($tab, $content){
+		if($content.is('#tab_3_c')){
+			window.location = $content.text();
+			return false;
+		}
+	}
+});
+</pre>
+<div id="block_3" class="block">
+	<ul class="tabs clearfix">
+    	<li class="tabu-tab-active"><a href="#tab_3_a">one</a></li>
+        <li><a href="#tab_3_b">two</a></li>
+        <li><a href="#tab_3_c">three</a></li>
+    </ul>
+    
+    <div id="tab_3_a" class="content tabu-cont-active">Hello, I am content block 1.</div>
+    <div id="tab_3_b" class="content">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+    <div id="tab_3_c" class="content">http://google.com</div>
+</div>
+
+<p>Now for some advanced functionality. Load content via ajax by using the callback function. Also, by utilizing localStorage, we can save
+the last tab that was viewed by the user, and reload it when he/she returns to the page. We can also turn off the JavaScript check in this
+scenario since the content is loaded via ajax.</p>
+<pre>
+var lastTabIdx = 1;
+
+// get the last tab that was viewed
+if(localStorage) lastTabIdx = Number(localStorage.tab) || 1;
+
+// fn which loads the content
+function loadFile($content){
+	var id = $content.attr('id'), file = '';
+
+	// determine which file to load
+	switch(id){
+		case 'tab_4_a':
+			file = '01';
+			break;
+		case 'tab_4_b':
+			file = '02';
+			break;
+		case 'tab_4_c':
+			file = '03';
+			break;
+	}
+	
+	// ajax load content
+	$content.load('ajax/' + file + '.html');
+}
+
+// load the ajax content from previous session
+loadFile(
+	$('#block_4').find('div.content:nth-child(' + (lastTabIdx + 1) + ')')
+);
+
+// init tabulous
+$('#block_4').find('ul.tabs').tabulous({
+	index: lastTabIdx,
+	checkJS: false,
+	callback: function($tab, $content){
+		// save the index of the last tab that was viewed
+		if(localStorage) localStorage.tab = $tab.parent().index() + 1;
+		
+		// only load if content hasn't been loaded yet
+		if(!$content.html()) loadFile($content);
+	}
+});
+</pre>
+<div id="block_4" class="block">
+	<ul class="tabs clearfix">
+    	<li><a href="#tab_4_a">one</a></li>
+        <li><a href="#tab_4_b">two</a></li>
+        <li><a href="#tab_4_c">three</a></li>
+    </ul>
+    
+    <div id="tab_4_a" class="content"></div>
+    <div id="tab_4_b" class="content"></div>
+    <div id="tab_4_c" class="content"></div>
+</div>
+
+<p>Be sure to check this page after disabling JavaScript. You will find all the content blocks visible (except the last
+set, as it is dependent on ajax).</p>
 
 </body>
 </html>
