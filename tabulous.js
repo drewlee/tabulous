@@ -1,3 +1,13 @@
+/*
+* Tabulous jQuery Plugin v1.0
+*
+* Copyright (c) 2011 Andrew A. Lee
+*
+* Dual licensed under the MIT and GPL licenses, located in
+* MIT-LICENSE.txt and GPL-LICENSE.txt respectively.
+*
+* Sun Sep 04 2011 02:26:29 GMT-0500 (CDT)
+*/
 (function($){
 $.fn.tabulous = function(opts){
 	var methods = {
