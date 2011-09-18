@@ -1,29 +1,25 @@
 /*
-* Tabulous jQuery Plugin v1.0
+* Tabulous jQuery Plugin v1.1
 *
 * Copyright (c) 2011 Andrew A. Lee
 *
 * Dual licensed under the MIT and GPL licenses, located in
 * MIT-LICENSE.txt and GPL-LICENSE.txt respectively.
 *
-* Sun Sep 04 2011 02:26:29 GMT-0500 (CDT)
+* Sun Sep 18 2011 15:32:29 GMT-0500 (CDT)
 */
 (function($){
 $.fn.tabulous = function(opts){
+	var st = {
+		tabClass: 'tabu-tab-active',
+		contentClass: 'tabu-cont-active',
+		event: 'click',
+		index: 0,
+		callback: null,
+		checkJS: true
+	};
+
 	var methods = {
-		st: {
-			tabClass: 'tabu-tab-active',
-			contentClass: 'tabu-cont-active',
-			event: 'click',
-			index: 0,
-			callback: null,
-			checkJS: true
-		},
-		
-		clean: function(str){
-			return str.substr(str.indexOf('#'));
-		},
-		
 		markHtml: function(){
 			if(st.checkJS){
 				var $html = $(document.documentElement), cls = 'js-tabulous';
@@ -34,10 +30,10 @@ $.fn.tabulous = function(opts){
 		resetTabs: function($a){
 			var $li = $a.parent(),
 				$aLi = $li.siblings('li.' + st.tabClass),
-				id = $aLi.find('a').attr('href');
+				id = $aLi.find('a')[0].hash;
 			
 			$aLi.removeClass(st.tabClass);
-			$(this.clean(id)).removeClass(st.contentClass);
+			$(id).removeClass(st.contentClass);
 		},
 		
 		handleEvent: function(e){
@@ -45,7 +41,7 @@ $.fn.tabulous = function(opts){
 			
 			var $this = $(this),
 				_this = methods,
-				$cont = $(_this.clean($this.attr('href')));
+				$cont = $(this.hash);
 				
 			if($this.parent().hasClass(st.tabClass)){return;}
 			
@@ -59,9 +55,8 @@ $.fn.tabulous = function(opts){
 			$this.parent().addClass(st.tabClass);
 			$cont.addClass(st.contentClass);
 		}
-	},
-	st = methods.st;
-	
+	};
+
 	$.extend(st, opts || {});
 	
 	if(st.event != 'click' && st.event != 'mouseover'){st.event = 'click';}
