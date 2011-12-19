@@ -24,10 +24,14 @@ First you must set up the proper HTML structure:
 </div>
 
 By default, Tabulous applies the "tabu-tab-active" class name to the active tab element, and the
-"content tabu-cont-active" class name to the active content block element. Use these class names to set the
-display properties of the content blocks to block or none. Each of your content blocks must contain a unique
-ID attribute. The HREF attribute of the tabs must match the ID attribute of your content blocks. Initialize the
-plugin by applying it to the UL element wrapping the tabs.
+"tabu-cont-active" class name to the active content block element.
+
+Use these class names to set the display properties of the content elements to either "display:block" or "display:none":
+.content{display:none;}
+.tabu-cont-active{display:block;}
+
+Each of your content blocks must contain a unique ID attribute. The HREF attribute of the tabs must match the ID attribute
+of your content blocks. Initialize the plugin by applying it to the UL element wrapping the tabs.
 
 $('ul.tabs').tabulous();
 
@@ -51,6 +55,10 @@ is "js-tabulous". Use this as a qualifier to hide the non active content blocks.
 This ensures graceful degradation in the case that JavaScript is disabled as all the content blocks will still
 be visible to the user.
 
+Note: all structural and show/hide settings must be set up via CSS. This is to ensure maximum customizability
+and to keep stylistic and behavioral layers seperate. See the included index.html for examples of how to set
+up your styles.
+
 
 OPTIONS
 
@@ -60,10 +68,10 @@ Tabulous features 6 optional settings.
 
 - contentClass: A custom class name applied to the active content element. Default is "tabu-cont-active".
 
-- event: Tabulous works with either the click event or the mouseover event. Default is click.
+- event: Tabulous works with either the "click" event or the "mouseover" event. Default is "click".
 
 - index: The zero based index of the tab that should be active on initialization. For performance reasons, it is
-	recommended that you apply the active class names to the tab you wish to make active manually in your HTML. But,
+	recommended that you apply the active class names to the tab you wish to make active on load in your HTML. But,
 	it is understood that in some instaces you need to reload a previously saved state, and this is when you can use
 	the index setting. The index setting is ignored until it is explicitly set.
 
@@ -74,6 +82,7 @@ Tabulous features 6 optional settings.
 - checkJS: Turns off the attachment of the "js-tabulous" class name to the HTML element on initialization. Default
 	setting is true, set to false to turn of the JavaScript check.
 
+Example:
 $('#tabs').tabulous({
 	tabClass: 'my-active-tab',          // default is 'tabu-tab-active'
 	contentClass: 'my-active-content',  // default is 'tabu-cont-active'
@@ -81,7 +90,7 @@ $('#tabs').tabulous({
 	index: 0,                           // the 0 based index of that tab that should be active on init
 	callback: null,                     // callback function that runs when tab switch is triggered
 	checkJS: true                       // prevent class attachment to the HTML element on init, default is true,
-                                            // set to false to turn off
+                                            // set to false to disable
 });
 
 
