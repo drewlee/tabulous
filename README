@@ -57,8 +57,8 @@ is "js-tabulous". Use this as a qualifier to hide the non active content blocks.
 This ensures graceful degradation in the case that JavaScript is disabled, as all the content blocks will still
 be visible to the user.
 
-Note: all structural and show/hide settings must be set up via CSS. This is to ensure maximum customizability
-and to keep stylistic and behavioral layers seperate. See the included index.html for examples. The included
+Note: all structural and show/hide settings must be set up via CSS. This is to ensure maximum customization
+and to keep stylistic and behavioral layers separate. See the included index.html for examples. The included
 base.css features the basic base styles needed to create a tab structure.
 
 
@@ -76,7 +76,7 @@ Tabulous features 6 optional settings.
 
 - index: The zero based index of the tab that should be active on initialization. For performance reasons, it is
 	recommended that you simply hardcode the initial active tab in your HTML. But, it is understood that in some
-	instaces you need to load a previously saved state, and this is when the index setting comes to use. The index
+	instances you need to load a previously saved state, and this is when the index setting comes to use. The index
 	option is ignored until it is explicitly set.
 
 - callback: A custom callback function that runs when a tab is clicked or moused over. The anchor element and content
