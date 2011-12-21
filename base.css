@@ -1,0 +1,17 @@
+@charset "UTF-8";
+
+/* BASE */
+/* clearfix */
+.clearfix:after{content:'.'; display:block; clear:both; visibility:hidden; height:0; line-height:0;}
+.clearfix{height:1%;}
+
+/* tabs */
+ul.tabs{display:block;}
+ul.tabs li{display:block; float:left;}
+ul.tabs a{display:block; width:100px; padding:4px 0; text-align:center; cursor:default;}
+
+/* states */
+.js-tabulous ul.tabs a:hover{cursor:pointer;}
+.js-tabulous .content{display:none;}
+.js-tabulous .tabu-cont-active{display:block;}
+.js-tabulous .tabu-tab-active a{cursor:default;}

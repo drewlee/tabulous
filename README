@@ -58,8 +58,8 @@ This ensures graceful degradation in the case that JavaScript is disabled, as al
 be visible to the user.
 
 Note: all structural and show/hide settings must be set up via CSS. This is to ensure maximum customizability
-and to keep stylistic and behavioral layers seperate. See the included index.html and base.css for examples of
-how to set up your styles.
+and to keep stylistic and behavioral layers seperate. See the included index.html for examples. The included
+base.css features the basic base styles needed to create a tab structure.
 
 
 -------

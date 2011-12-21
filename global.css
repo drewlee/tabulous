@@ -1,0 +1,11 @@
+@charset "UTF-8";
+
+/* global */
+body{margin:0; padding:0; font:12px/16px Arial, sans-serif; color:#000; background-color:#fff;}
+ul, li{margin:0; padding:0; list-style-type:none;}
+h1{margin:20px 30px; font-size:24px; line-height:16px; color:#333;}
+a{text-decoration:none; color:#000; outline:none;}
+p{margin:12px 30px;}
+pre{display:block; margin:0 30px 20px; padding:5px; background-color:#e5f5fd; font:12px/16px Courier, sans-serif; color:#333;}
+footer{display:block; font-size:10px; margin:20px 30px 10px;}
+footer a{text-decoration:underline;}
