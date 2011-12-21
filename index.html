@@ -3,7 +3,10 @@
 <head>
 <title>Tabulous Usage Guide</title>
 
+<link href="global.css" rel="stylesheet" />
+<link href="base.css" rel="stylesheet" />
 <link href="styles.css" rel="stylesheet" />
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
 <script src="tabulous.min.js"></script>
 <script>
@@ -74,6 +77,19 @@ $('#block_4').find('ul.tabs').tabulous({
 		// only load if content hasn't been loaded yet
 		if(!$content.html()) loadFile($content);
 	}
+});
+
+
+var $block5 = $('#block_5'),
+	$block5tabs = $block5.find('ul.tabs'),
+	count = 3;
+	
+$block5tabs.tabulous();
+
+$('#add').click(function(){
+	count++;
+	$block5tabs.append('<li><a href="#tab_5_' + (count - 1) + '">' + count + '</a></li>');
+	$block5.append('<div class="content" id="tab_5_' + (count - 1) + '">Hello, I am content block ' + count + '.</div>');
 });
 
 });
@@ -219,8 +235,25 @@ $('#block_4').find('ul.tabs').tabulous({
     <div id="tab_4_c" class="content"></div>
 </div>
 
-<p>Be sure to check this page after disabling JavaScript. You will find all the content blocks visible (except the last
-set, as it is dependent on ajax).</p>
+<p>Because events are bound using event delegation, new tabs can be easily added dynamically without
+having to do any extra set up. Simply add a new tab using the button below and click it to view it's contents.</p>
+
+<div id="block_5" class="block">
+	<ul class="tabs clearfix">
+    	<li class="tabu-tab-active"><a href="#tab_5_0">1</a></li>
+        <li><a href="#tab_5_1">2</a></li>
+        <li><a href="#tab_5_2">3</a></li>
+    </ul>
+    
+    <div id="tab_5_0" class="content tabu-cont-active">Hello, I am content block 1.</div>
+    <div id="tab_5_1" class="content">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+    <div id="tab_5_2" class="content">http://google.com</div>
+</div>
+
+<button id="add">Add a tab</button>
+
+
+<p>Be sure to check this page after disabling JavaScript. You will find all the content blocks visible (except the set dependent on ajax).</p>
 
 <footer>&copy; 2011 Andrew A. Lee | Contact: <a href="mailto:andrew@andrewleeart.com">andrew@andrewleeart.com</a></footer>
 </body>
