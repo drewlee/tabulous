@@ -300,15 +300,12 @@
   $.fn.tabulous = function(){
     var args = [].slice.call(arguments),
         instance,
-        method,
-        $el;
+        method;
 
     if (typeof args[0] === 'string'){
       return this.each(function(index, element){
-        $el = $(element);
-
-        if ($el.data(CONSTANTS.NAMESPACE)){
-          instance = $el.data(CONSTANTS.NAMESPACE);
+        if ($.data(element, CONSTANTS.NAMESPACE)){
+          instance = $.data(element, CONSTANTS.NAMESPACE);
 
           if ($.inArray(args[0], CONSTANTS.METHODS) > -1){
             method = args.shift();
@@ -318,10 +315,8 @@
       });
     } else {
       return this.each(function(index, element){
-        $el = $(element);
-
-        if (!$el.data(CONSTANTS.NAMESPACE)){
-          $el.data(CONSTANTS.NAMESPACE, new Tabulous($el, args[0]));
+        if (!$.data(element, CONSTANTS.NAMESPACE)){
+          $.data(element, CONSTANTS.NAMESPACE, new Tabulous($(element), args[0]));
         }
       });
     }
