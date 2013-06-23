@@ -7,91 +7,101 @@
 <link href="base.css" rel="stylesheet" />
 <link href="styles.css" rel="stylesheet" />
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
-<script src="tabulous.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="tabulous.js"></script>
 <script>
 document.createElement('footer');
 
 $(function(){
-
-$('#block_0').find('ul.tabs').tabulous();
-
-$('#block_1').find('ul.tabs').tabulous({
-	tabClass: 't-active',
-	contentClass: 'c-active'
-});
-
-$('#block_2').find('ul.tabs').tabulous({
-	event: 'mouseover'
-})
-.find('a').click(function(e){e.preventDefault()});
-
-$('#block_3').find('ul.tabs').tabulous({
-	callback: function($tab, $content){
-		if($content.is('#tab_3_c')){
-			window.location = $content.text();
-			return false;
-		}
-	}
-});
-
-var lastTabIdx = 1;
-
-// get the last tab that was viewed
-if(typeof localStorage != 'undefined') lastTabIdx = Number(localStorage.tab) || 1;
-
-// fn which loads the content
-function loadFile($content){
-	var id = $content.attr('id'), file = '';
-
-	// determine which file to load
-	switch(id){
-		case 'tab_4_a':
-			file = '01';
-			break;
-		case 'tab_4_b':
-			file = '02';
-			break;
-		case 'tab_4_c':
-			file = '03';
-			break;
-	}
-	
-	// ajax load content
-	$content.load('ajax/' + file + '.html');
-}
-
-// load the ajax content from previous session
-loadFile(
-	$('#block_4').find('div:nth-child(' + (lastTabIdx + 1) + ')')
-);
-
-// init tabulous
-$('#block_4').find('ul.tabs').tabulous({
-	index: lastTabIdx,
-	checkJS: false,
-	callback: function($tab, $content){
-		// save the index of the last tab that was viewed
-		if(typeof localStorage != 'undefined') localStorage.tab = $tab.parent().index() + 1;
-		
-		// only load if content hasn't been loaded yet
-		if(!$content.html()) loadFile($content);
-	}
-});
+  $('#block_0').find('ul.tabs').tabulous();
 
 
-var $block5 = $('#block_5'),
-	$block5tabs = $block5.find('ul.tabs'),
-	count = 3;
-	
-$block5tabs.tabulous();
+  $('#block_1').find('ul.tabs').tabulous({
+    tabCSS: 't-active',
+    contentCSS: 'c-active'
+  });
 
-$('#add').click(function(){
-	count++;
-	$block5tabs.append('<li><a href="#tab_5_' + (count - 1) + '">' + count + '</a></li>');
-	$block5.append('<div class="content" id="tab_5_' + (count - 1) + '">Hello, I am content block ' + count + '.</div>');
-});
 
+  $('#block_2').find('ul.tabs').tabulous({
+    event: 'mouseover'
+  })
+  .find('a').click(function(e){ e.preventDefault(); });
+
+
+  $('#block_3').find('ul.tabs').tabulous({
+    callback: function(index, $tab, $content){
+      if (index === 2){
+        console.log('yes');
+        return false;
+      }
+    }
+  });
+
+
+  var lastTabIdx = 0;
+
+  // get the last tab that was viewed
+  if (typeof localStorage !== 'undefined'){
+    lastTabIdx = Number(localStorage.tab) || 0;
+  }
+
+  // fn which loads the content
+  function loadFile($content){
+    var id = $content.attr('id'),
+        file = '';
+
+    // determine which file to load
+    switch (id){
+      case 'tab_4_a':
+        file = '01';
+        break;
+      case 'tab_4_b':
+        file = '02';
+        break;
+      case 'tab_4_c':
+        file = '03';
+        break;
+    }
+    
+    // ajax load content
+    $content.load('ajax/' + file + '.html');
+  }
+
+  // load the ajax content from previous session
+  // loadFile( $('#block_4').find('div:eq(' + lastTabIdx + ')') );
+
+
+  // init tabulous
+  $('#block_4').find('ul.tabs').tabulous({
+    index: lastTabIdx,
+    callback: function(index, $tab, $content){
+      // save the index of the last tab that was viewed
+      if (typeof localStorage !== 'undefined'){
+        localStorage.tab = index;
+      }
+      
+      // only load if content hasn't been loaded yet
+      if (!$content.html()){
+        loadFile($content);
+      }
+    }
+  });
+
+
+  var $block5 = $('#block_5'),
+      $block5tabs = $block5.find('ul.tabs'),
+      count = 3;
+    
+  $block5tabs.tabulous();
+
+  $('#add').click(function(){
+    count++;
+
+    var tab = '<li><a href="#tab_5_' + (count - 1) + '">' + count + '</a></li>',
+        content = '<div class="content" id="tab_5_' + (count - 1) + '">Hello, I am content block ' + count + '.</div>';
+
+    $block5tabs.tabulous('add', tab, content, 1/*count - 1*/);
+  });
 });
 </script>
 </head>
@@ -103,8 +113,8 @@ $('#add').click(function(){
 $('#block_0').find('ul.tabs').tabulous();
 </pre>
 <div id="block_0" class="block">
-	<ul class="tabs clearfix">
-    	<li class="tabu-tab-active"><a href="#tab_0_a">one</a></li>
+  <ul class="tabs clearfix">
+      <li class="tabu-tab-active"><a href="#tab_0_a">one</a></li>
         <li><a href="#tab_0_b">two</a></li>
         <li><a href="#tab_0_c">three</a></li>
     </ul>
@@ -117,13 +127,13 @@ $('#block_0').find('ul.tabs').tabulous();
 <p>Apply custom class names to active tab and active content block.</p>
 <pre>
 $('#block_1').find('ul.tabs').tabulous({
-	tabClass: 't-active',
-	contentClass: 'c-active'
+  tabCSS: 't-active',
+  contentCSS: 'c-active'
 });
 </pre>
 <div id="block_1" class="block">
-	<ul class="tabs clearfix">
-    	<li class="t-active"><a href="#tab_1_a">one</a></li>
+  <ul class="tabs clearfix">
+      <li class="t-active"><a href="#tab_1_a">one</a></li>
         <li><a href="#tab_1_b">two</a></li>
         <li><a href="#tab_1_c">three</a></li>
     </ul>
@@ -136,12 +146,12 @@ $('#block_1').find('ul.tabs').tabulous({
 <p>Use a mouseover event instead of click event.</p>
 <pre>
 $('#block_2').find('ul.tabs').tabulous({
-	event: 'mouseover'
+  event: 'mouseover'
 });
 </pre>
 <div id="block_2" class="block">
-	<ul class="tabs clearfix">
-    	<li class="tabu-tab-active"><a href="#tab_2_a">one</a></li>
+  <ul class="tabs clearfix">
+      <li class="tabu-tab-active"><a href="#tab_2_a">one</a></li>
         <li><a href="#tab_2_b">two</a></li>
         <li><a href="#tab_2_c">three</a></li>
     </ul>
@@ -155,24 +165,24 @@ $('#block_2').find('ul.tabs').tabulous({
 false to prevent the tab behavior from executing. Clicking the third tab below will redirect to the Google homepage.</p>
 <pre>
 $('#block_3').find('ul.tabs').tabulous({
-	callback: function($tab, $content){
-		if($content.is('#tab_3_c')){
-			window.location = $content.text();
-			return false;
-		}
-	}
+  callback: function($tab, $content){
+    if($content.is('#tab_3_c')){
+      window.location = $content.text();
+      return false;
+    }
+  }
 });
 </pre>
 <div id="block_3" class="block">
-	<ul class="tabs clearfix">
-    	<li class="tabu-tab-active"><a href="#tab_3_a">one</a></li>
-        <li><a href="#tab_3_b">two</a></li>
-        <li><a href="#tab_3_c">three</a></li>
-    </ul>
-    
-    <div id="tab_3_a" class="content tabu-cont-active">Hello, I am content block 1.</div>
-    <div id="tab_3_b" class="content">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
-    <div id="tab_3_c" class="content">http://google.com</div>
+  <ul class="tabs clearfix">
+    <li class="tabu-tab-active"><a href="#tab_3_a">one</a></li>
+    <li><a href="#tab_3_b">two</a></li>
+    <li><a href="http://google.com">three</a></li>
+  </ul>
+  
+  <div id="tab_3_a" class="content tabu-cont-active">Hello, I am content block 1.</div>
+  <div id="tab_3_b" class="content">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+  <div id="tab_3_c" class="content">http://google.com</div>
 </div>
 
 <p>Now for some advanced functionality. Load content via ajax by using the callback function. Also, by utilizing localStorage, we can save
@@ -186,46 +196,46 @@ if(localStorage) lastTabIdx = Number(localStorage.tab) || 1;
 
 // fn which loads the content
 function loadFile($content){
-	var id = $content.attr('id'), file = '';
+  var id = $content.attr('id'), file = '';
 
-	// determine which file to load
-	switch(id){
-		case 'tab_4_a':
-			file = '01';
-			break;
-		case 'tab_4_b':
-			file = '02';
-			break;
-		case 'tab_4_c':
-			file = '03';
-			break;
-	}
-	
-	// ajax load content
-	$content.load('ajax/' + file + '.html');
+  // determine which file to load
+  switch(id){
+    case 'tab_4_a':
+      file = '01';
+      break;
+    case 'tab_4_b':
+      file = '02';
+      break;
+    case 'tab_4_c':
+      file = '03';
+      break;
+  }
+  
+  // ajax load content
+  $content.load('ajax/' + file + '.html');
 }
 
 // load the ajax content from previous session
 loadFile(
-	$('#block_4').find('div.content:nth-child(' + (lastTabIdx + 1) + ')')
+  $('#block_4').find('div.content:nth-child(' + (lastTabIdx + 1) + ')')
 );
 
 // init tabulous
 $('#block_4').find('ul.tabs').tabulous({
-	index: lastTabIdx,
-	checkJS: false,
-	callback: function($tab, $content){
-		// save the index of the last tab that was viewed
-		if(localStorage) localStorage.tab = $tab.parent().index() + 1;
-		
-		// only load if content hasn't been loaded yet
-		if(!$content.html()) loadFile($content);
-	}
+  index: lastTabIdx,
+  checkJS: false,
+  callback: function($tab, $content){
+    // save the index of the last tab that was viewed
+    if(localStorage) localStorage.tab = $tab.parent().index() + 1;
+    
+    // only load if content hasn't been loaded yet
+    if(!$content.html()) loadFile($content);
+  }
 });
 </pre>
 <div id="block_4" class="block">
-	<ul class="tabs clearfix">
-    	<li><a href="#tab_4_a">one</a></li>
+  <ul class="tabs clearfix">
+      <li><a href="#tab_4_a">one</a></li>
         <li><a href="#tab_4_b">two</a></li>
         <li><a href="#tab_4_c">three</a></li>
     </ul>
@@ -239,8 +249,8 @@ $('#block_4').find('ul.tabs').tabulous({
 having to do any extra set up. Simply add a new tab using the button below and click it to view it's contents.</p>
 
 <div id="block_5" class="block">
-	<ul class="tabs clearfix">
-    	<li class="tabu-tab-active"><a href="#tab_5_0">1</a></li>
+  <ul class="tabs clearfix">
+      <li class="tabu-tab-active"><a href="#tab_5_0">1</a></li>
         <li><a href="#tab_5_1">2</a></li>
         <li><a href="#tab_5_2">3</a></li>
     </ul>

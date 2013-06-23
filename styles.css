@@ -16,7 +16,11 @@ ul.tabs a{background-color:#aaa; border-bottom:1px solid #fff; color:#fff;}
 .content{height:48px; overflow-y:auto; padding:10px; margin:0 30px; background-color:#eee;}
 
 /* tabulous styles */
-.js-tabulous .tabu-tab-active a{background-color:#444; border-bottom-color:#444;}
+.tabu-tab-active a {
+	background-color: #444;
+	border-bottom-color: #444;
+}
+
 .js-tabulous ul.tabs a:hover{background-color:#444;}
 
 /* usage with custom classes */
@@ -31,14 +35,16 @@ ul.tabs a{
 	background:linear-gradient(#aaa, #888);
 	text-shadow:0 1px 1px #222;
 }
-.js-tabulous ul.tabs a:hover,
-.js-tabulous .tabu-tab-active a,
-.js-tabulous .t-active a{
-	background:-webkit-gradient(linear, 0 0, 0 100%, from(#666), to(#444));
-	background:-moz-linear-gradient(#666, #444);
-	background:-o-linear-gradient(#666, #444);
-	background:linear-gradient(#666, #444);
+
+ul.tabs a:hover,
+ul .tabu-tab-active a,
+ul .t-active a {
+	background: -webkit-gradient(linear, 0 0, 0 100%, from(#666), to(#444));
+	background: -moz-linear-gradient(#666, #444);
+	background: -o-linear-gradient(#666, #444);
+	background: linear-gradient(#666, #444);
 }
+
 .content{
 	background:-webkit-gradient(linear, 0 0, 0 100%, from(#bbb), color-stop(10%, #eee));
 	background:-moz-linear-gradient(#bbb, #eee 5px);
