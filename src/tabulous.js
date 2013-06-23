@@ -222,8 +222,6 @@
     },
 
     updateDOM: function(callback, index){
-      var n = this.get();
-
       if (typeof callback === 'function'){
         callback();
       }
@@ -328,4 +326,4 @@
       });
     }
   };
-})(jQuery);
+}(jQuery));

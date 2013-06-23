@@ -1,0 +1,31 @@
+{
+  "name": "tabulous",
+  "version": "0.1.1",
+  "description": "Accessible tab control widget.",
+  "main": "src/tabulous.js",
+  "homepage": "https://github.com/drewlee/tabulous",
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "grunt qunit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/drewlee/tabulous.git"
+  },
+  "author": "Andrew A. Lee",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "grunt-contrib-jshint": "~0.1.1",
+    "grunt-contrib-qunit": "~0.1.1",
+    "grunt-contrib-uglify": "~0.1.1",
+    "grunt-contrib-watch": "~0.2.0",
+    "grunt": "~0.4.1",
+    "phantomjs": "~1.9.1-0"
+  }
+}
